@@ -1,0 +1,389 @@
+/* ─── Base Reset ──────────────────────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: #000;
+    color: #fff;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    user-select: none;
+}
+
+/* ─── Game Container ─────────────────────────────────────────────────────── */
+#game-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+}
+
+#game-canvas {
+    display: block;
+    border: 2px solid #222;
+    border-radius: 4px;
+}
+
+/* ─── Screens ────────────────────────────────────────────────────────────── */
+.screen {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+}
+
+.screen.active {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.screen-enter { animation: screenIn 0.2s ease; }
+.screen-exit  { animation: screenOut 0.2s ease; }
+
+@keyframes screenIn  { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+@keyframes screenOut { from { opacity: 1; } to { opacity: 0; } }
+
+/* ─── Menu Screen ────────────────────────────────────────────────────────── */
+.game-title {
+    font-size: 48px;
+    font-weight: 900;
+    color: #FFD700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.game-subtitle {
+    font-size: 14px;
+    color: #888;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+.btn {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #FFD700;
+    padding: 12px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin: 6px;
+    min-width: 220px;
+    font-family: inherit;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background: #FFD700;
+    color: #000;
+    transform: scale(1.03);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: #FFD700;
+    color: #000;
+}
+
+.btn-primary:hover {
+    background: #FFF;
+    border-color: #FFF;
+}
+
+.btn-small {
+    padding: 6px 16px;
+    font-size: 12px;
+    min-width: auto;
+    letter-spacing: 1px;
+}
+
+.btn.disabled, .btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
+.btn-danger {
+    border-color: #FF4444;
+    color: #FF4444;
+}
+
+.btn-danger:hover {
+    background: #FF4444;
+    color: #000;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* ─── Results Screen ─────────────────────────────────────────────────────── */
+.results-panel {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 30px 50px;
+    text-align: center;
+}
+
+.results-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #FFD700;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 30px;
+    margin-bottom: 24px;
+}
+
+.result-item {
+    text-align: center;
+}
+
+.result-label {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.result-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.result-value.coins { color: #FFD700; }
+
+#result-high {
+    font-size: 14px;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+}
+
+/* ─── Settings ───────────────────────────────────────────────────────────── */
+.settings-panel {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 30px 50px;
+    text-align: center;
+}
+
+.settings-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFD700;
+    margin-bottom: 24px;
+    letter-spacing: 3px;
+}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.controls-info {
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+/* ─── Shop & Skins ───────────────────────────────────────────────────────── */
+.shop-panel, .skins-panel {
+    background: rgba(0, 0, 0, 0.92);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 24px;
+    max-height: 560px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.shop-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFD700;
+    margin-bottom: 4px;
+    letter-spacing: 3px;
+}
+
+.shop-coins {
+    font-size: 14px;
+    color: #FFD700;
+    margin-bottom: 16px;
+}
+
+.skin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.skin-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+    transition: border-color 0.15s;
+}
+
+.skin-card.active {
+    border-color: #FFD700;
+}
+
+.skin-card.owned {
+    border-color: #555;
+}
+
+.skin-preview {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.skin-seg {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.skin-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #ccc;
+}
+
+/* ─── Achievements ───────────────────────────────────────────────────────── */
+.achievements-panel {
+    background: rgba(0, 0, 0, 0.92);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 24px;
+    max-height: 520px;
+    overflow-y: auto;
+    text-align: center;
+    width: 420px;
+}
+
+.achievements-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFD700;
+    margin-bottom: 16px;
+    letter-spacing: 3px;
+}
+
+.achievements-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.achievement-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #222;
+    border-radius: 6px;
+    text-align: left;
+    opacity: 0.4;
+}
+
+.achievement-card.unlocked {
+    opacity: 1;
+    border-color: #444;
+}
+
+.achievement-icon {
+    font-size: 24px;
+    width: 36px;
+    text-align: center;
+}
+
+.achievement-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.achievement-desc {
+    font-size: 11px;
+    color: #888;
+}
+
+/* ─── Paused ─────────────────────────────────────────────────────────────── */
+.pause-panel {
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 30px 50px;
+    text-align: center;
+}
+
+.pause-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #FFD700;
+    margin-bottom: 24px;
+    letter-spacing: 4px;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    #game-container {
+        width: 100vw;
+        height: 100vw;
+        max-width: 600px;
+        max-height: 600px;
+    }
+    #game-canvas {
+        width: 100%;
+        height: 100%;
+    }
+    .game-title { font-size: 32px; }
+    .btn { padding: 10px 28px; font-size: 14px; min-width: 180px; }
+    .skin-grid { grid-template-columns: repeat(2, 1fr); }
+}
